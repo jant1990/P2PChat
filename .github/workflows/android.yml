@@ -1,10 +1,9 @@
-name: Android CI (Wi-Fi Direct P2PChat)
+name: Android CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "**" ]
-  pull_request:
-  workflow_dispatch:
 
 jobs:
   build-debug:
@@ -17,7 +16,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: "17"
           cache: gradle
 
       - name: Set up Android SDK
@@ -31,15 +30,15 @@ jobs:
       - name: Accept Android SDK licenses
         run: yes | sdkmanager --licenses
 
-      - name: Set up Gradle (no wrapper)
+      - name: Build (uses Gradle 8.9 from action)
         uses: gradle/gradle-build-action@v3
         with:
           gradle-version: 8.9
 
-      - name: Build debug APK
+      - name: Assemble debug
         run: gradle --no-daemon assembleDebug
 
-      - name: Upload debug APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
