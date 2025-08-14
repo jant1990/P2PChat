@@ -19,7 +19,7 @@ jobs:
           java-version: "17"
           cache: gradle
 
-      - name: Set up Android SDK
+      - name: Set up Android SDK (correct multiline)
         uses: android-actions/setup-android@v3
         with:
           packages: |
@@ -30,7 +30,7 @@ jobs:
       - name: Accept Android SDK licenses
         run: yes | sdkmanager --licenses
 
-      - name: Build (uses Gradle 8.9 from action)
+      - name: Gradle 8.9
         uses: gradle/gradle-build-action@v3
         with:
           gradle-version: 8.9
